@@ -1,0 +1,79 @@
+<h2>Reactive: <small> Dinamic </small></h2>
+<hr>
+
+<form autocomplete="off" [formGroup]="myForm">
+
+    <!-- Nombre -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label" >Nombre</label>
+        <div class="col-sm-9">
+            <input class="form-control" placeholder="Nombre de la persona" formControlName="name"
+                required>
+            <span *ngIf="isValid('name')" class="form-text text-danger">
+                Este campo es obligatorio
+            </span>
+        </div>
+    </div>
+
+    <!-- Agregar Favorito -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Agregar</label>
+        <div class="col-sm-9">
+
+            <div class="input-group">
+                <input class="form-control" placeholder="Agregar favorito"
+                [formControl]="newFavorit"
+                (keyup.enter)="addFavorit()">    
+
+                <button class="btn btn-outline-primary" type="button" (click)="addFavorit()">
+                    Agregar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Lista de Juegos Favoritos -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Favoritos</label>
+        <div class="col-sm-9" formArrayName="favorits">
+
+            <div class="input-group mb-1" *ngFor="let favorit of favoritsArr.controls; let i = index">
+                <input [formControlName] ="i" class="form-control">
+
+                <button class="btn btn-outline-danger" type="button" (click)="delete(i)">
+                    Eliminar
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary float-end" (click)="onSave()">
+                 Guardar
+            </button>
+        </div>
+    </div>
+
+
+</form>
+
+<span>Valid</span>
+<pre>{{ myForm.valid }}</pre>
+
+<br>
+<span>Value</span>
+<pre>{{ myForm.value | json }}</pre>
+
+<br>
+<span>Agregar Nuevo juego</span>
+<pre>{{ myForm.valid }}</pre>
+<pre>{{ myForm.value }}</pre>
+
+
+<span>Persona</span>
+<!-- <pre>{{ persona | json }}</pre> -->
